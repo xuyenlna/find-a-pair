@@ -91,35 +91,38 @@ const handleCardClick = (liElement) => {
   const firstCard = selections[0].dataset.id;
   const secondCard = selections[1].dataset.id;
   const isMatch = firstCard === secondCard;
+  console.log(firstCard, secondCard);
+  console.log(isMatch);
 
   if (isMatch) {
     //remove the liElement
-    selections[o].classList.remove('active');
-    selections[o].style.backgroundColor('#fff');
-    selections[1].classList.remove('active');
-    selections[1].style.backgroundColor('#fff');
+    // selections[o].classList.remove('active');
+    // selections[o].style.backgroundColor('#fff');
+    // selections[1].classList.remove('active');
+    // selections[1].style.backgroundColor('#fff');
 
     // check win
     const inActiveColorList = document.querySelectorAll(
-      '.color-list > li:not(.active)'
+      '.card-list > li:not(.active)'
     );
     const isWin = inActiveColorList.length === 0;
     if (isWin) {
       setTimerText('YOU WIN!!!!');
       showPlayAgainButton();
       resetGame();
-      // timer.clear()
+      timer.clear();
 
       gameStatus = GAME_STATUS.FINISHED;
     }
 
     selections = [];
+    return;
   }
 
   // in case isMatch === false
   // remove "active" class from two liElement
   // reset selections for the next turn
-  // gameStatus = GAME_STATUS.BLOCKING
+  gameStatus = GAME_STATUS.BLOCKING;
   setTimeout(() => {
     selections[0].classList.remove('active');
     selections[1].classList.remove('active');
