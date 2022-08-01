@@ -17,6 +17,7 @@ const GAME_TIME = 30;
 //global variables
 let selections = [];
 let gameStatus = GAME_STATUS.PLAYING;
+let countCorrectPair = 0;
 
 // selectors:
 const ulElement = document.querySelector('.card-list');
@@ -95,21 +96,14 @@ const handleCardClick = (liElement) => {
   console.log(isMatch);
 
   if (isMatch) {
-    //remove the liElement
-    // selections[o].classList.remove('active');
-    // selections[o].style.backgroundColor('#fff');
-    // selections[1].classList.remove('active');
-    // selections[1].style.backgroundColor('#fff');
-
+    countCorrectPair += 1;
     // check win
-    const inActiveColorList = document.querySelectorAll(
-      '.card-list > li:not(.active)'
-    );
-    const isWin = inActiveColorList.length === 0;
+    const isWin = countCorrectPair === PAIRS_COUNT;
+    console.log(countCorrectPair);
+    console.log(isWin);
     if (isWin) {
-      setTimerText('YOU WIN!!!!');
+      setTimerText('YOU WIN !!!');
       showPlayAgainButton();
-      resetGame();
       timer.clear();
 
       gameStatus = GAME_STATUS.FINISHED;
@@ -140,6 +134,7 @@ const handleCardClick = (liElement) => {
 const resetGame = () => {
   // reset global vars
   selections = [];
+  countCorrectPair = 0;
   gameStatus = GAME_STATUS.PLAYING;
 
   // reset Dom elements
